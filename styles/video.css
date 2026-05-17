@@ -60,6 +60,10 @@
     gap: 15px;
 }
 
+.channel-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
 .channel-avatar {
     width: 45px; height: 45px;
@@ -69,13 +73,77 @@
     cursor: pointer;
 }
 
-/* --- TYPOGRAPHY --- */
-.info-text a { text-decoration: none; color: inherit; }
-
-.info-text h3 {
-    font-size: 1rem; line-height: 1.4; color: white;
-    display: -webkit-box; -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical; overflow: hidden;
+/* The Hidden Tooltip */
+.channel-tooltip {
+    position: absolute;
+    bottom: 60px; /* Offset to float above avatar */
+    left: 0;
+    width: 240px;
+    background-color: var(--card-bg);
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    
+    /* Reveal Animation Logic */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
 }
 
-.info-text p { color: var(--text-dim); font-size: 0.85rem; margin-top: 5px; }
+.channel-wrapper:hover .channel-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltip-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+
+.tooltip-info { display: flex; flex-direction: column; }
+
+.tooltip-name { color: white; font-weight: 700; font-size: 0.95rem; }
+
+.tooltip-subs { color: var(--text-dim); font-size: 0.8rem; margin-top: 4px; }
+
+/* Pointer Triangle */
+.channel-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; left: 18px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: var(--card-bg) transparent transparent transparent;
+}
+
+/* --- TYPOGRAPHY --- */
+.info-text a { 
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.info-text h3 {
+    font-size: 1rem; 
+    line-height: 1.4; 
+    color: white;
+    display: -webkit-box; 
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    margin: 0 0 4px 0;
+}
+
+.info-text p { 
+    color: var(--text-dim); 
+    font-size: 0.85rem; 
+    margin: 0;        
+    line-height: 1.3; 
+}
+
+.info-text p + p {
+    margin-top: 3px; 
+}
